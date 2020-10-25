@@ -86,16 +86,12 @@ def generate_screenshots(language, font):
 
 
 def check_os():
-    """
-Currently only working on Linux.
-    """
+    """Currently only working on Linux."""
     return platform.system() == 'Linux'
 
 
 def check_packages():
-    """
-ImageMagicks convert and morgify are required
-    """
+    """ImageMagicks convert and morgify are required."""
     common = b'Version: ImageMagick'
     try:
         return common in subprocess.check_output(['convert', '-version']) and common in subprocess.check_output(
@@ -105,9 +101,7 @@ ImageMagicks convert and morgify are required
 
 
 def check_fonts():
-    """
-Check if required fonts are installed
-    """
+    """Check if required fonts are installed."""
     try:
         for font in langs_and_fonts.values():
             if bytes(font.encode()) not in subprocess.check_output(['fc-list', '-v']):
