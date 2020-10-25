@@ -1,6 +1,18 @@
 #!/bin/python
 import os
+import subprocess
+import platform
 from pathlib import Path
+
+langs_and_fonts = {
+    'de-DE': 'Sarabun-Bold',
+    'en-US': 'Sarabun-Bold',
+    'fr-FR': 'Sarabun-Bold',
+    'he-IL': 'Arimo-Bold',
+    'nl-NL': 'Sarabun-Bold',
+    'it-IT': 'Sarabun-Bold',
+    'es-ES': 'Sarabun-Bold'
+}
 
 
 def generate_text(text, font):
@@ -73,10 +85,41 @@ def generate_screenshots(language, font):
     os.system('mogrify -resize 1120 "' + output_path + '/0*.png"')
 
 
-generate_screenshots('de-DE', 'Sarabun-Bold')
-generate_screenshots('en-US', 'Sarabun-Bold')
-generate_screenshots('fr-FR', 'Sarabun-Bold')
-generate_screenshots('he-IL', 'Arimo-Bold')
-generate_screenshots('nl-NL', 'Sarabun-Bold')
-generate_screenshots('it-IT', 'Sarabun-Bold')
-generate_screenshots('es-ES', 'Sarabun-Bold')
+def check_os():
+    """
+Currently only working on Linux.
+    """
+    return platform.system() == 'Linux'
+
+
+def check_packages():
+    """
+ImageMagicks convert and morgify are required
+    """
+    common = b'Version: ImageMagick'
+    try:
+        return common in subprocess.check_output(['convert', '-version']) and common in subprocess.check_output(
+            ['mogrify', '-version'])
+    except subprocess.CalledProcessError:
+        return False
+
+
+def check_fonts():
+    """
+Check if required fonts are installed
+    """
+    try:
+        for font in langs_and_fonts.values():
+            if bytes(font.encode()) not in subprocess.check_output(['fc-list', '-v']):
+                return False
+    except subprocess.CalledProcessError:
+        return False
+    return True
+
+
+if __name__ == '__main__':
+    assert (check_os())
+    assert (check_packages())
+    assert (check_fonts())
+    for lang, font in langs_and_fonts.items():
+        generate_screenshots(lang, font)
