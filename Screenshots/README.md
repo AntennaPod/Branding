@@ -24,7 +24,7 @@ To convert the normal screenshots to framed ones, you can use the `generateScree
 
 System requirements:
 
-- Linux
+- Linux or Darwin
 - Python
 - ImageMagick needs to be installed
 - The fonts mentioned in `generateScreenshots.py` need to be installed
