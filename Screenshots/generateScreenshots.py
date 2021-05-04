@@ -87,7 +87,7 @@ def generate_screenshots(language, font):
 
 def check_os():
     """Currently only working on Linux."""
-    return platform.system() == 'Linux'
+    return platform.system() == 'Linux' or platform.system() == 'Darwin'
 
 
 def check_packages():
