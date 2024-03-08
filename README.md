@@ -17,7 +17,6 @@ This repository contains sources for the brand design, such as logo, screenshots
 - [Launcher icon](Launcher%20Icon)
 - [Launcher icon (Development version)](Launcher%20Icon%20Dev)
 - [Promo backgrounds and release announcements](Promotionals)
-- [App store screenshots](Screenshots)
 - [System notification icons](System%20Icon)
 
 ### Color Palette
